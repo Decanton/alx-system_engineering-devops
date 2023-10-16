@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Add a UFW rule to redirect incoming traffic from port 8080 to port 80
+# Open the UFW configuration file for editing
+sudo nano /etc/ufw/before.rules
+
+# Add the port forwarding rule to the `before.rules` file
+# This rule redirects incoming TCP traffic on port 8080 to port 80
+# Place this rule before the final COMMIT line in the `before.rules` file
+# Use Ctrl+O to save the file and Ctrl+X to exit the text editor
+cat <<EOL | sudo tee -a /etc/ufw/before.rules
+*nat
+:PREROUTING ACCEPT [0:0]
+-A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
+COMMIT
+EOL
+
+# Reload UFW to apply the changes
+sudo ufw reload
+
+# Verify that the port forwarding rule is set up correctly
+# Check the listening ports using netstat
+netstat -lpn
+

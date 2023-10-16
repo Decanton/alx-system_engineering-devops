@@ -1,0 +1,15 @@
+# Update the UFW rules to deny all incoming traffic by default
+ufw default deny incoming
+
+# Allow incoming SSH (port 22) traffic
+ufw allow 22/tcp
+
+# Allow incoming HTTPS (port 443) traffic
+ufw allow 443/tcp
+
+# Allow incoming HTTP (port 80) traffic
+ufw allow 80/tcp
+
+# Enable the UFW firewall to apply the rules
+ufw enable
+
